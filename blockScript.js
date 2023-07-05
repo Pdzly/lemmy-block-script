@@ -3,11 +3,11 @@ const instance = "https://lemmy.world"; // the instance you want to block from
 
 const toBlock = []; // the communities you want to block (the "qualified" name, /c/this_is_the_name => this_is_the_name )
 
-const delay = 5000; // Keep this at 5000 or higher to avoid rate limiting
+const delay = 2500; // Keep this at 2500 or higher to avoid rate limiting
 
 const jwt_token = ""; // find it in your browser's local storage (F12 -> Network -> Headers -> Body -> auth)
 
-const block = true; // set to false to unblock communities
+const should_block = true; // set to false to unblock communities
 
 // Don't touch anything below this line
 // ------------------------------------
@@ -54,7 +54,7 @@ async function blockCommunity(comm) {
   params.body = JSON.stringify({
     auth: jwt_token,
     community_id: id,
-    block: block,
+    block: should_block,
   });
   await fetch(api, params);
 }
