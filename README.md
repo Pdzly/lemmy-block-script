@@ -5,7 +5,7 @@ A script to mass block communities on Lemmy!
 ## Usage
 
     1. Copy `blockScipt.js` somewhere in a texteditor ( something like visual studio code ).
-    2. Edit everything the config  
+    2. Edit everything the config above
 
     // Don't touch anything below this line  
     // ------------------------------------
