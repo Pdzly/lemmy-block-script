@@ -1,7 +1,7 @@
 // Config:
 const instance = "https://lemmy.world"; // the instance you want to block from
 
-const toBlock = []; // the communities you want to block (the "qualified" name, /c/this_is_the_name => this_is_the_name )
+const toBlock = []; // the communities you want to block (the "qualified" name, /c/this_is_the_name => this_is_the_name OR the ID of the community IDs are instance specific! )
 
 const delay = 2500; // Keep this at 2500 or higher to avoid rate limiting
 
@@ -48,12 +48,16 @@ async function getCommunity(name) {
 async function blockCommunity(comm) {
   const api = apiUrl + "community/block";
 
-  const id = (await getCommunity(comm)).community_view.community.id;
+  let commId = comm;
+  if(typeof(comm) !== "number") {
+    const commun = await getCommunity(comm)
+    commId = commun.community_view.community.id;
+  }
   const params = blockContent;
 
   params.body = JSON.stringify({
     auth: jwt_token,
-    community_id: id,
+    community_id: commId,
     block: should_block,
   });
   await fetch(api, params);
